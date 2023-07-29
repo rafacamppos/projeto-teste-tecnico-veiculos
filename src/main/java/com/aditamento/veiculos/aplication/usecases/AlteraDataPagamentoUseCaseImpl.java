@@ -37,8 +37,7 @@ public class AlteraDataPagamentoUseCaseImpl implements AlteraDataPagamentoUseCas
         listaFinanceiro.add(financeiro);
         alteraDataPagamento.setFinanceiro(listaFinanceiro);
         logger.info("Dia de pagamento alterado com sucesso", alteraDataPagamento);
-        Aditamento aditamento = alteraDiaPagamentoAditamentoMap.map(alteraDataPagamento);
-        return aditamento;
+        return alteraDiaPagamentoAditamentoMap.map(alteraDataPagamento);
     }
 
     private FinanceiroDomain getFinanceiro(AlteraDataPagamento alteraDiaPagamento){
