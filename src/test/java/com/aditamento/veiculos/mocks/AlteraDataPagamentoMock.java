@@ -8,7 +8,6 @@ import com.aditamento.veiculos.domain.entity.FinanceiroDomain;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 

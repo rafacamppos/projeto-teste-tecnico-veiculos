@@ -17,16 +17,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 import jakarta.validation.Valid;
 
 
 import java.util.Collections;
+import java.util.Map;
+import java.util.UUID;
 
 
 @Controller
@@ -48,7 +47,9 @@ public class AditamentoController {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping(value = "/altera-quantidade-parcelas",  consumes = "application/json", produces = "application/json")
-    private ResponseEntity<?> postAlteraQuantidadeParcela(@Valid @RequestBody AlteracaoNumeroParcelas alteraParcela){//TODO colocar o header
+    private ResponseEntity<?> postAlteraQuantidadeParcela(@Valid @RequestBody AlteracaoNumeroParcelas alteraParcela,
+                                                          @RequestHeader ("itau-pos-venda-teste") UUID headerItauPosVenda){
+        logger.info("Header itau-pos-venda-teste {}", headerItauPosVenda);
         logger.info("Requisição para alteração de parcela recebida", alteraParcela);
         AditamentoDTO aditamentoDTO = alteracaoNumeroParcelasToAditamento.map(alteraParcela);
         Aditamento aditamento = alteraNumeroParcelasUseCase.alteraNumeroParcelas(aditamentoToAlteraNumeroParcelas.map(aditamentoDTO));
@@ -56,7 +57,9 @@ public class AditamentoController {
     }
 
     @PostMapping(value = "/altera-dia-pagamento",  consumes = "application/json", produces = "application/json")
-    private ResponseEntity<AditamentoResponse> postAlteraDiaPagamento(@Valid @RequestBody AlteracaoDataPagamento alteraDataPagamento){//TODO colocar o header
+    private ResponseEntity<AditamentoResponse> postAlteraDiaPagamento(@Valid @RequestBody AlteracaoDataPagamento alteraDataPagamento,
+                                                                      @RequestHeader ("itau-pos-venda-teste") UUID headerItauPosVenda){
+        logger.info("Header itau-pos-venda-teste {}", headerItauPosVenda);
         logger.info("Requisição para alteração de data de pagamento recebida", alteraDataPagamento);
         AditamentoDTO aditamentoDTO = alteracaoDataToAditamentoDTO.map(alteraDataPagamento);
         Aditamento aditamento = alteraDataUseCase.alteraDataPagamento(aditamentoDtoToAlteraDiaPagamento.map(aditamentoDTO));
