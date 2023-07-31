@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+
 @Component
 @RequiredArgsConstructor
 public class ConsultaTaxaJurosServiceImpl implements ConsultaTaxaJurosService {
@@ -25,10 +26,12 @@ public class ConsultaTaxaJurosServiceImpl implements ConsultaTaxaJurosService {
     @Override
     public JurosCalculado consultaTaxaJuros(ConsultaTaxaJuros contratoTaxaJuros) {
         logger.debug("Iniciando consulta da taxa de juros", contratoTaxaJuros);
-        //ResponseEntity<ConsultaTaxaJurosResponse> jurosResponse = client.consultaTaxaJuros(contratoTaxaJuros);
-        ResponseEntity<ConsultaTaxaJurosResponse> response = ResponseEntity.ok(ConsultaTaxaJurosResponse.builder().data(JurosCalculadoDTO.builder().percentualJuros(1.98).valorTotal(new BigDecimal(5000)).build()).build());
+        //ResponseEntity<ConsultaTaxaJurosResponse> responseEntity = client.consultaTaxaJuros(contratoTaxaJuros);
+        ConsultaTaxaJurosResponse jurosResponse = new ConsultaTaxaJurosResponse();
+        jurosResponse.setData(JurosCalculadoDTO.builder().percentualJuros(1.98).valorTotal(new BigDecimal(5000)).build());
+        ResponseEntity<ConsultaTaxaJurosResponse> responseEntity = ResponseEntity.ok(jurosResponse);
 
-        logger.info("Taxa de juros consultada com sucesso!", response);
-        return responseEntityJurosCalculadoEntityMap.map(response);
+        logger.info("Taxa de juros consultada com sucesso!", responseEntity);
+        return responseEntityJurosCalculadoEntityMap.map(responseEntity);
     }
 }

@@ -8,4 +8,5 @@ import lombok.Data;
 public class ErrorMessage {
     private int status;
     private String message;
+    private String url;
 }
